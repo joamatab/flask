@@ -141,9 +141,7 @@ class TestUrlFor:
 
         class MyView(MethodView):
             def get(self, id=None):
-                if id is None:
-                    return "List"
-                return f"Get {id:d}"
+                return "List" if id is None else f"Get {id:d}"
 
             def post(self):
                 return "Create"

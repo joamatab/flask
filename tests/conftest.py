@@ -50,8 +50,7 @@ class Flask(_Flask):
 
 @pytest.fixture
 def app():
-    app = Flask("flask_test", root_path=os.path.dirname(__file__))
-    return app
+    return Flask("flask_test", root_path=os.path.dirname(__file__))
 
 
 @pytest.fixture
@@ -93,7 +92,7 @@ def leak_detector():
     leaks = []
     while flask._request_ctx_stack.top is not None:
         leaks.append(flask._request_ctx_stack.pop())
-    assert leaks == []
+    assert not leaks
 
 
 @pytest.fixture(params=(True, False))
