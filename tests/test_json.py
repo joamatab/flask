@@ -237,9 +237,7 @@ def test_json_customization(app, client):
             flask.json.JSONDecoder.__init__(self, *args, **kwargs)
 
         def object_hook(self, obj):
-            if len(obj) == 1 and "_foo" in obj:
-                return X(obj["_foo"])
-            return obj
+            return X(obj["_foo"]) if len(obj) == 1 and "_foo" in obj else obj
 
     app.json_encoder = MyEncoder
     app.json_decoder = MyDecoder
@@ -276,10 +274,7 @@ def test_blueprint_json_customization(app, client):
             flask.json.JSONDecoder.__init__(self, *args, **kwargs)
 
         def object_hook(self, obj):
-            if len(obj) == 1 and "_foo" in obj:
-                return X(obj["_foo"])
-
-            return obj
+            return X(obj["_foo"]) if len(obj) == 1 and "_foo" in obj else obj
 
     bp = flask.Blueprint("bp", __name__)
     bp.json_encoder = MyEncoder

@@ -75,7 +75,7 @@ class BlueprintSetupState:
         #: A dictionary with URL defaults that is added to each and every
         #: URL that was defined with the blueprint.
         self.url_defaults = dict(self.blueprint.url_values_defaults)
-        self.url_defaults.update(self.options.get("url_defaults", ()))
+        self.url_defaults |= self.options.get("url_defaults", ())
 
     def add_url_rule(
         self,
